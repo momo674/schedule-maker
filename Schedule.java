@@ -66,6 +66,10 @@ public class Schedule{
     }
 
     public static void main(String[] args) {
+        Course cs = new Course("Python", 123, 0, 1200, 1500, 2, 1200, 1500);
+        Student bob = new Student("bob", "bob", 123, "cs");
+        bob.addCourse(cs);
+        System.out.println(bob);
         Schedule a = new Schedule();
     }
 }

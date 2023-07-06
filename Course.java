@@ -38,7 +38,10 @@ public class Course{
         return this.ENDDAY1;
     }
     public int getDay2StartTime() {
-        
+        return this.STARTDAY2;
+    }
+    public int getDay2EndTime() {
+        return this.ENDDAY2;
     }
 
 }
