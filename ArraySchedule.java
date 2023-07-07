@@ -18,10 +18,32 @@ public class ArraySchedule {
         int time = index * 50;
         return time;
     }
+    public boolean attemptToAdd(int i, int j, int value) {
+        if (this.sch[i][j] == 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
 
     public void add(int i, int j, int value) {
-        this.sch[i][j] = value;
-    }`
+       this.sch[i][j] = value;
+        
+    }
+    public boolean attemptToRemove(int i, int j, int value) {
+        if (this.sch[i][j] != 0) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+    
+    public void remove(int i, int j, int value) {
+       this.sch[i][j] = 0;
+        
+    }
     public int[][] getArray() {
         return this.sch;
     }
