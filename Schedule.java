@@ -7,18 +7,21 @@ public class Schedule{
     private JPanel panel;
     private int length = this.getUserDisplayLength();
     private int height = this.getUserDisplayHeight();
-    public Schedule() {
+    private Student person;
+    public Schedule(Student person) {
+        this.person = person;
         this.frame = this.MainFrame();
         this.panel = this.MainPanel();
         panel.add(this.SchedulePanelView());
         frame.add(panel);
+        
 
         
 
     }
     public JFrame MainFrame() {
         frame = new JFrame("Schedule");
-        frame.getContentPane().setBackground(Color.RED);
+        frame.getContentPane().setBackground(Color.DARK_GRAY);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setVisible(true);
         frame.setLayout(null);
@@ -43,13 +46,43 @@ public class Schedule{
         blank.setBounds(schedulex,scheduley,schedulexsize,scheduleysize);
         blank.setLayout(null);
         blank.setBackground(Color.BLUE);
-
+        
         JPanel test = new JPanel();
-        //test.setLayout(null);
-        test.setBounds(0,0,100,100);
-        test.setBackground(Color.ORANGE);
-        test.setBorder(BorderFactory.createLineBorder(Color.BLACK,5));
-        blank.add(test);
+
+        int blocklength = schedulexsize / 7;
+        int blockheight = scheduleysize / 48;
+        
+        int x = 0;
+        int y = 0;
+        int blockcounty = 0;
+        for (int i = 0; i < schedulexsize - blocklength; i+= blocklength ) {
+            if (blockcounty == 48) {blockcounty = 0; y=0;}
+            
+            inner:
+            for (int j = 0; j < scheduleysize-blockheight; j+= blockheight){
+                System.out.println(x + " " + y);
+                if (blockcounty == 48) {break inner;}
+                JPanel block = new JPanel();
+                test.setLayout(null);
+                block.setBounds(i,j,blocklength,blockheight);
+                //block.setBackground(Color.RED);
+                if (this.person.SCHEDULE.getArray()[y][x] !=0) {
+                    block.setBackground(Color.RED);
+                }
+                else {
+                    block.setBackground(Color.WHITE);
+                }
+                
+                block.setBorder(BorderFactory.createLineBorder(Color.BLACK,2));
+                blank.add(block);
+                blockcounty++;
+                y++;
+            }
+            x++;
+            
+            
+        }        
+        
         return blank;
     }
 
@@ -73,11 +106,7 @@ public class Schedule{
         bob.addCourse(cs);
         bob.addCourse(math);
         System.out.println(bob);
-        bob.removeCourse(cs);
-        System.out.println(bob);
-        bob.removeCourse(math);
-        System.out.println(bob);
 
-        //Schedule a = new Schedule();
+        Schedule a = new Schedule(bob);
     }
 }

@@ -1,7 +1,7 @@
 import java.util.Arrays;
 
 public class Student {
-    private ArraySchedule SCHEDULE;
+    public ArraySchedule SCHEDULE;
     private String FIRST_NAME;
     private String LAST_NAME;
     private int ID;
