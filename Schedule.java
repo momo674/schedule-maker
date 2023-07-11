@@ -1,6 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.border.BevelBorder;
+//import javax.swing.border.BevelBorder;
 
 public class Schedule{
     private JFrame frame;
@@ -13,6 +13,10 @@ public class Schedule{
         this.frame = this.MainFrame();
         this.panel = this.MainPanel();
         panel.add(this.SchedulePanelView());
+        for (int i = 0; i <= 7; i++){
+            frame.add(this.dayDisplay(i));
+        }
+        
         frame.add(panel);
         
 
@@ -45,7 +49,7 @@ public class Schedule{
         JPanel blank = new JPanel();
         blank.setBounds(schedulex,scheduley,schedulexsize,scheduleysize);
         blank.setLayout(null);
-        blank.setBackground(Color.BLUE);
+        blank.setBackground(Color.DARK_GRAY);
         
         JPanel test = new JPanel();
 
@@ -85,6 +89,47 @@ public class Schedule{
         
         return blank;
     }
+    public String indexToDayName(int day, int style){
+        String[] name_list = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        String name = name_list[day];
+
+        if (style == 1) {name.toUpperCase();}
+        if (style == 2) {name.toLowerCase();}
+
+
+        return name;
+    }
+
+    public JPanel dayDisplay(int i) {
+        int schedulex = (int) (this.length/10);
+        int scheduley = (int) (this.height/4) - 50;
+        int schedulexsize = (int) (length - 2*schedulex);
+        int blocklength = schedulexsize / 7;
+        int scheduleysize = 50;
+        JPanel blank = new JPanel();
+        //blank.setLayout(null);
+        blank.setLayout(null);
+        blank.setBounds(schedulex,scheduley,schedulexsize * i/7,scheduleysize);
+        blank.setBackground(new Color(237,203,130));
+        blank.setBorder(BorderFactory.createLineBorder(Color.BLACK,3));
+        JLabel day = new JLabel("Monday");
+        day.setBounds(i*blocklength, 0, 70, 25);
+        blank.add(day);
+        
+        // for (int i = schedulex; i < schedulexsize; i = i + blocklength){
+        //     JPanel block = new JPanel();
+        //     block.setLayout(null);
+        //     block.setBounds(i,scheduley,blocklength,scheduleysize);
+        //     block.setBackground(Color.CYAN);
+        //     blank.add(block);
+        // }
+
+        
+        
+        return blank;
+
+
+    }
 
     public int getUserDisplayLength(){
        GraphicsDevice gd = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
@@ -108,5 +153,7 @@ public class Schedule{
         System.out.println(bob);
 
         Schedule a = new Schedule(bob);
+
+        
     }
 }
