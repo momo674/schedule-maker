@@ -1,7 +1,8 @@
 import java.util.Arrays;
-
+import java.util.LinkedList;
 public class Student {
     public ArraySchedule SCHEDULE;
+    public LinkedList<Course> CLASS_LIST;
     private String FIRST_NAME;
     private String LAST_NAME;
     private int ID;
@@ -13,6 +14,8 @@ public class Student {
         this.ID = id;
         this.PROGRAM_TITLE = program;
         this.SCHEDULE = new ArraySchedule();
+        this.CLASS_LIST = new LinkedList<>();
+        
     }
 
     public void addCourse(Course c) {
@@ -29,6 +32,7 @@ public class Student {
         int i = day1_start;
         while (i <= day1_end) {
             if (this.SCHEDULE.attemptToAdd(this.SCHEDULE.convertTimeToIndex(i), day1, id)) {
+                this.CLASS_LIST.add(c);
                 this.SCHEDULE.add(this.SCHEDULE.convertTimeToIndex(i), day1, id);
                 i = i + 50;
             }
@@ -54,6 +58,19 @@ public class Student {
         }
     }
 
+    public String getCourse(int id) {
+        String result = "NOT FOUND";
+        for (Course selected: this.CLASS_LIST) {
+            
+            if (id == selected.getId()) {
+                result = selected.getName();
+                return result;
+            }
+            
+        }
+        return result;
+    }
+
     public void removeCourse(Course c) {
         int id = c.getId();
         int day1 = c.getDay1();
@@ -68,6 +85,7 @@ public class Student {
         int i = day1_start;
         while (i <= day1_end) {
             if (this.SCHEDULE.attemptToRemove(this.SCHEDULE.convertTimeToIndex(i), day1, id)) {
+                this.CLASS_LIST.remove(c);
                 this.SCHEDULE.remove(this.SCHEDULE.convertTimeToIndex(i), day1, id);
                 i = i + 50;
             }
