@@ -12,6 +12,10 @@ public class Schedule{
         this.person = person;
         this.frame = this.MainFrame();
         this.panel = this.MainPanel();
+        
+       
+
+        panel.add(this.timeStampPlacement());
         panel.add(this.SchedulePanelView());
         
         for (int i = 1; i <= 7; i++){
@@ -33,20 +37,63 @@ public class Schedule{
         frame.setBounds(0,0,720,480);
         return frame;
     }
-
+    // public JPanel greetingsPanel(){
+    //     JPanel
+    // }
     public JPanel MainPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(null);
         panel.setBounds(0,0,length,height);
         panel.setBackground(Color.DARK_GRAY);
         
+        
         return panel;
+    }
+
+    public JPanel timeStampPlacement() {
+        
+        int xcord = 0;
+        int ycord = (int) (height/4);
+        int xsize = (int) (length/10);
+        int ysize = (int) (height - 1.25* ycord);
+        
+        JPanel timeStamp = new JPanel();
+        timeStamp.setLayout(null);
+
+        timeStamp.setBounds(xcord,ycord,xsize,ysize);
+        timeStamp.setBackground(Color.DARK_GRAY);
+
+        int count = 0;
+        for (int y = 0; y < 960; y = y + 40) {
+            int time =  2 * ConvertTools.convertIndexToTime(count);
+            JPanel block = new JPanel();
+            block.setBounds(xcord,y, xsize, (ysize/24));
+            block.setBackground(Color.WHITE);
+            block.setBorder(BorderFactory.createMatteBorder(1,1,1,2,Color.black));
+            
+            
+            
+            JLabel name = new JLabel(ConvertTools.convertMilitaryToStandard(time));
+            name.setFont(new Font("Verdana",1,20));
+            name.setForeground(Color.blue);
+            block.add(name);
+            timeStamp.add(block);
+            
+            count++;
+
+            
+            System.out.println(time);
+        }
+        
+        return timeStamp;
+        
     }
     public JPanel SchedulePanelView() {
         int schedulex = (int) (length/10);
         int scheduley = (int) (height/4);
         int schedulexsize = (int) (length - 2*schedulex);
         int scheduleysize = (int) (height - 1.25*scheduley);
+        
         JPanel blank = new JPanel();
         blank.setBounds(schedulex,scheduley,schedulexsize,scheduleysize);
         blank.setLayout(null);
